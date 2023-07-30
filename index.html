@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <nav class="bg-blue-500 p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="text-white text-xl font-bold">My Website</div>
+        <div class="hidden md:flex space-x-4">
+          <a href="#" class="text-white">Home</a>
+          <a href="#" class="text-white">About</a>
+          <a href="#" class="text-white">Services</a>
+          <a href="#" class="text-white">Contact</a>
+        </div>
+        <!-- Dropdown Button -->
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-white focus:outline-none">
+            <!-- <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg> -->
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Dropdown Menu (Initially hidden for small screens) -->
+    <div id="dropdown-menu" class="hidden md:hidden bg-blue-500 p-4">
+      <a href="#" class="block text-white mb-2">Home</a>
+      <a href="#" class="block text-white mb-2">About</a>
+      <a href="#" class="block text-white mb-2">Services</a>
+      <a href="#" class="block text-white mb-2">Contact</a>
+    </div>
+
+    <div id="map" class="h-[300px]"></div>
+    <button
+      class="text-white bg-sky-800 p-[10px] rounded-[15px] ml-[50%] hover:bg-sky-300 m-5"
+      onclick="getLocation()"
+    >
+      near me
+    </button>
+
+    <div class="container mx-auto mt-8">
+      <div
+        class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
+        <!-- Card 1 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-35 object-cover rounded-t-lg"
+              src=".//Images/tajmahal.jpg"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">Taj Mahal</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Agra
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-35 object-cover rounded-t-lg"
+              src=".//Images/hawaMahal.png"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">Hawa Mahal</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Jaipur
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-[200px] object-cover rounded-t-lg"
+              src=".//Images/indiaGate.jpg"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">India Gate</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Delhi
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-25 object-cover rounded-t-lg"
+              src=".//Images/jallian.jpg"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">Jallianwala Bagh</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Amritsar
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-25 object-cover rounded-t-lg"
+              src=".//Images/sunTemple.jpg"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">Sun Temple</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Konark
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-[180px] object-cover rounded-t-lg"
+              src=".//Images/redFort.jpg"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">Red Fort</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Delhi
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-[180px] object-cover rounded-t-lg"
+              src=".//Images/elephanta.jpg"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">Elephanta caves</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Mumbai
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="relative">
+            <img
+              class="w-full h-[180px] object-cover rounded-t-lg"
+              src="./Images/gwalior.jpg"
+              alt="Image"
+            />
+          </div>
+          <div class="p-4">
+            <h5>Accomodation</h5>
+            <h3 class="text-xl font-bold mb-2">Gwalior Fort</h3>
+            <h4 class="text-blue-500 font-bold">Ask for price</h4>
+            <p class="mb-2 text-end text-blue-500">
+              <i class="fa-solid fa-location-dot fa-2xs"></i> Gwalior
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto py-8 mt-[50px]">
+      <h1 class="text-4xl text-center font-bold">
+        List your tourism services for free
+      </h1>
+      <p class="text-lg text-center mt-4">
+        Thrill tourism is an online platform that enables tourists to directly
+        connect with hosts, without any commission fees.
+      </p>
+      <button
+        class="block mx-auto mt-6 px-4 py-2 text-white bg-blue-500 rounded-md"
+      >
+        Publish your ad for free
+      </button>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="index.js"></script>
+  </body>
+</html>
